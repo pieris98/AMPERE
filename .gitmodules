@@ -1,0 +1,21 @@
+[submodule "DiMA"]
+	path = DiMA
+	url = https://github.com/pieris98/DiMA
+[submodule "SaProt"]
+	path = SaProt
+	url = https://github.com/pieris98/SaProt
+[submodule "ProteinDT"]
+	path = ProteinDT
+	url = https://github.com/pieris98/ProteinDT.git
+[submodule "ProTrek"]
+	path = ProTrek
+	url = https://github.com/pieris98/ProTrek
+[submodule "ProtoMech"]
+	path = ProtoMech
+	url = https://github.com/pieris98/ProtoMech
+[submodule "magneton"]
+	path = magneton
+	url = https://github.com/pieris98/magneton
+[submodule "FastPLMs"]
+	path = FastPLMs
+	url = https://github.com/pieris98/FastPLMs.git

@@ -1,0 +1,30 @@
+# Git history
+.git
+.gitignore
+
+# Pixi internal data
+.pixi
+
+# Other projects or subprojects not needed (assuming only DiMA is needed for this image)
+# If ProtoMech is not needed, skip it
+ProtoMech/
+
+# Python caches
+**/__pycache__/
+**/*.pyc
+**/*.pyo
+**/*.pyd
+
+# Large data/models
+**/checkpoints/
+**/data/
+**/.cache/
+
+# Logs
+**/*.log
+**/wandb/
+
+# IDE
+.vscode/
+.idea/
+.claude/
