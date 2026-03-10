@@ -1,0 +1,117 @@
+version: '3.8'
+
+services:
+  dima:
+    build:
+      context: .
+      dockerfile: DiMA/Dockerfile
+    image: dima:latest
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    volumes:
+      - ~/.cache/huggingface:/workspace/phd/DiMA/.cache/huggingface
+      - ./DiMA/checkpoints:/workspace/phd/DiMA/checkpoints
+    environment:
+      - WANDB_MODE=offline
+    command: ["python", "example_simple.py"]
+
+  fastplms:
+    build:
+      context: .
+      dockerfile: FastPLMs/Dockerfile
+    image: fastplms:latest
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    volumes:
+      - ~/.cache/huggingface:/workspace/phd/FastPLMs/.cache/huggingface
+    command: ["bash"]
+
+  protrek:
+    build:
+      context: .
+      dockerfile: ProTrek/Dockerfile
+    image: protrek:latest
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    volumes:
+      - ~/.cache/huggingface:/workspace/phd/ProTrek/.cache/huggingface
+    command: ["bash"]
+
+  proteindt:
+    build:
+      context: .
+      dockerfile: ProteinDT/Dockerfile
+    image: proteindt:latest
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    volumes:
+      - ~/.cache/huggingface:/workspace/phd/ProteinDT/.cache/huggingface
+    command: ["bash"]
+
+  protomech:
+    build:
+      context: .
+      dockerfile: ProtoMech/Dockerfile
+    image: protomech:latest
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    volumes:
+      - ~/.cache/huggingface:/workspace/phd/ProtoMech/.cache/huggingface
+    command: ["bash"]
+
+  saprot:
+    build:
+      context: .
+      dockerfile: SaProt/Dockerfile
+    image: saprot:latest
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    volumes:
+      - ~/.cache/huggingface:/workspace/phd/SaProt/.cache/huggingface
+    command: ["bash"]
+
+  magneton:
+    build:
+      context: .
+      dockerfile: magneton/Dockerfile
+    image: magneton:latest
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    volumes:
+      - ~/.cache/huggingface:/workspace/phd/magneton/.cache/huggingface
+    command: ["bash"]
