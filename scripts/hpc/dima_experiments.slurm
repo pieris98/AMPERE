@@ -1,13 +1,13 @@
 #!/bin/bash
-# SBATCH --job-name=dima_experiments
-# SBATCH --partition=boost_usr_prod         # Leonardo Boost partition (A100)
-# SBATCH --nodes=1
-# SBATCH --ntasks-per-node=1
-# SBATCH --cpus-per-task=16
-# SBATCH --gres=gpu:1                       # Use 1 GPU
-# SBATCH --time=04:00:00                    # 4 hours
-# SBATCH --output=%x_%j.out
-# SBATCH --error=%x_%j.err
+#SBATCH --job-name=dima_experiments
+#SBATCH --partition=boost_usr_prod         # Leonardo Boost partition (A100)
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --cpus-per-task=16
+#SBATCH --gres=gpu:1                       # Use 1 GPU
+#SBATCH --time=04:00:00                    # 4 hours
+#SBATCH --output=%x_%j.out
+#SBATCH --error=%x_%j.err
 
 # Ensure Pixi is in the path
 export PATH="$HOME/.pixi/bin:$PATH"

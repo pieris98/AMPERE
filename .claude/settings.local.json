@@ -1,0 +1,36 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(conda run:*)",
+      "Bash(pip3 list:*)",
+      "Bash(python3:*)",
+      "Bash(uv --version:*)",
+      "Bash(uv python:*)",
+      "Bash(export PATH=\"/home/cherry/miniconda3/bin:$PATH\")",
+      "Bash(conda --version:*)",
+      "Bash(conda env create:*)",
+      "Bash(conda tos accept:*)",
+      "Bash(echo:*)",
+      "Bash(nvidia-smi:*)",
+      "Bash(nvcc:*)",
+      "Bash(conda env:*)",
+      "Bash(curl:*)",
+      "Bash(/usr/local/cuda/bin/nvcc:*)",
+      "Bash(conda search:*)",
+      "Bash(conda install:*)",
+      "Bash(CUDA_HOME=/home/cherry/miniconda3/envs/dima_env conda run -n dima_env pip install:*)",
+      "Bash(CUDA_HOME=/home/cherry/miniconda3/envs/dima_env conda run:*)",
+      "Bash(du:*)",
+      "Bash(grep:*)",
+      "Bash(pip show:*)",
+      "Bash(xargs:*)",
+      "Bash(chmod:*)",
+      "Bash(docker:*)",
+      "Bash(docker info:*)",
+      "WebFetch(domain:docs.nvidia.com)",
+      "Bash(ls:*)",
+      "Bash(git clone:*)",
+      "Bash(./docker/run.sh:*)"
+    ]
+  }
+}
