@@ -75,27 +75,20 @@ download-deps = { cmd = """
   [ -d openfold ] || git clone https://github.com/amyxlu/openfold.git
 """ }
 
-# STEP B: Run this on the GPU node (requires GPU/NVCC, no internet)
-# It installs them from the local folders we just created
 build-kernels = { cmd = """
-  # Fix CUDA headers for Pixi's internal paths
   ln -snf $CONDA_PREFIX/targets/x86_64-linux/include/nv $CONDA_PREFIX/include/nv &&
   ln -snf $CONDA_PREFIX/targets/x86_64-linux/include/cccl/thrust $CONDA_PREFIX/include/thrust &&
   ln -snf $CONDA_PREFIX/targets/x86_64-linux/include/cccl/cub $CONDA_PREFIX/include/cub &&
   ln -snf $CONDA_PREFIX/targets/x86_64-linux/include/cccl/cuda $CONDA_PREFIX/include/cuda &&
-  
-  # Set Build Variables
   export CUDA_HOME=$CONDA_PREFIX &&
   export MAX_JOBS=4 &&
-  
-  # Install locally (no internet needed)
+  export NVCC_APPEND_FLAGS='-allow-unsupported-compiler' &&
   cd third_party &&
   pip install --no-index --no-build-isolation -e esm &&
   pip install --no-index --no-build-isolation -e evo &&
   pip install --no-index --no-build-isolation -e cheap-proteins &&
   pip install --no-index --no-build-isolation -e openfold
 """ }
-
 
 [environments]
 dima-env = { features = ["dima"] }
