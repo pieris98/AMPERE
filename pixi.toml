@@ -61,8 +61,41 @@ py3Dmol = "*"
 pyarrow = "*"
 plotly = "*"
 
+# [feature.dima.tasks]
+# install-git-deps = { cmd = "ln -snf $CONDA_PREFIX/targets/x86_64-linux/include/nv $CONDA_PREFIX/include/nv && ln -snf $CONDA_PREFIX/targets/x86_64-linux/include/cccl/thrust $CONDA_PREFIX/include/thrust && ln -snf $CONDA_PREFIX/targets/x86_64-linux/include/cccl/cub $CONDA_PREFIX/include/cub && ln -snf $CONDA_PREFIX/targets/x86_64-linux/include/cccl/cuda $CONDA_PREFIX/include/cuda && CUDA_HOME=$CONDA_PREFIX pip install --no-build-isolation git+https://github.com/facebookresearch/esm.git@d7b3331f41442ed4ffde70cb95bdd48cabcec2e9 git+https://github.com/amyxlu/evo.git git+https://github.com/MeshchaninovViacheslav/cheap-proteins.git git+https://github.com/amyxlu/openfold.git" }
+
 [feature.dima.tasks]
-install-git-deps = { cmd = "ln -snf $CONDA_PREFIX/targets/x86_64-linux/include/nv $CONDA_PREFIX/include/nv && ln -snf $CONDA_PREFIX/targets/x86_64-linux/include/cccl/thrust $CONDA_PREFIX/include/thrust && ln -snf $CONDA_PREFIX/targets/x86_64-linux/include/cccl/cub $CONDA_PREFIX/include/cub && ln -snf $CONDA_PREFIX/targets/x86_64-linux/include/cccl/cuda $CONDA_PREFIX/include/cuda && CUDA_HOME=$CONDA_PREFIX pip install --no-build-isolation git+https://github.com/facebookresearch/esm.git@d7b3331f41442ed4ffde70cb95bdd48cabcec2e9 git+https://github.com/amyxlu/evo.git git+https://github.com/MeshchaninovViacheslav/cheap-proteins.git git+https://github.com/amyxlu/openfold.git" }
+# STEP A: Run this on the LOGIN node (requires internet)
+# It clones the repos into a local 'third_party' folder
+download-deps = { cmd = """
+  mkdir -p third_party && cd third_party &&
+  [ -d esm ] || git clone https://github.com/facebookresearch/esm.git &&
+  [ -d evo ] || git clone https://github.com/amyxlu/evo.git &&
+  [ -d cheap-proteins ] || git clone https://github.com/MeshchaninovViacheslav/cheap-proteins.git &&
+  [ -d openfold ] || git clone https://github.com/amyxlu/openfold.git
+""" }
+
+# STEP B: Run this on the GPU node (requires GPU/NVCC, no internet)
+# It installs them from the local folders we just created
+build-kernels = { cmd = """
+  # Fix CUDA headers for Pixi's internal paths
+  ln -snf $CONDA_PREFIX/targets/x86_64-linux/include/nv $CONDA_PREFIX/include/nv &&
+  ln -snf $CONDA_PREFIX/targets/x86_64-linux/include/cccl/thrust $CONDA_PREFIX/include/thrust &&
+  ln -snf $CONDA_PREFIX/targets/x86_64-linux/include/cccl/cub $CONDA_PREFIX/include/cub &&
+  ln -snf $CONDA_PREFIX/targets/x86_64-linux/include/cccl/cuda $CONDA_PREFIX/include/cuda &&
+  
+  # Set Build Variables
+  export CUDA_HOME=$CONDA_PREFIX &&
+  export MAX_JOBS=4 &&
+  
+  # Install locally (no internet needed)
+  cd third_party &&
+  pip install --no-index --no-build-isolation -e esm &&
+  pip install --no-index --no-build-isolation -e evo &&
+  pip install --no-index --no-build-isolation -e cheap-proteins &&
+  pip install --no-index --no-build-isolation -e openfold
+""" }
+
 
 [environments]
 dima-env = { features = ["dima"] }
