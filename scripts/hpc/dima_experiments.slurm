@@ -10,7 +10,7 @@
 #SBATCH --error=%x_%j.err
 
 # Ensure Pixi is in the path
-export PATH="$HOME/.pixi/bin:$PATH"
+export PATH="$SCRATCH/.pixi/bin:$PATH"
 
 echo "Running DiMA comprehensive experiments on $(hostname)"
 echo "Start time: $(date)"
